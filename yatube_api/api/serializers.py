@@ -6,13 +6,21 @@ from posts.models import Comment, Follow, Group, Post, User
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    """Сериализатор для модели Group."""
 
     class Meta:
         fields = '__all__'
         model = Group
 
+
 class PostSerializer(serializers.ModelSerializer):
-    author = SlugRelatedField(slug_field='username', read_only=True)
+    """Сериализатор для модели Post."""
+
+    author = SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+        default=serializers.CurrentUserDefault(),
+    )
 
     class Meta:
         fields = '__all__'
@@ -20,8 +28,11 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.SlugRelatedField(
-        read_only=True, slug_field='username'
+    """Сериализатор для модели Comment."""
+
+    author = SlugRelatedField(
+        slug_field='username',
+        read_only=True,
     )
 
     class Meta:
@@ -31,6 +42,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
+    """Сериализатор для модели Follow."""
+
     user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username',
@@ -40,6 +53,7 @@ class FollowSerializer(serializers.ModelSerializer):
         queryset=User.objects.all(),
         slug_field='username'
     )
+
     class Meta:
         fields = '__all__'
         model = Follow
@@ -47,12 +61,12 @@ class FollowSerializer(serializers.ModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=Follow.objects.all(),
-                fields=('user', 'following')
+                fields=('user', 'following',)
             )
         ]
 
     def validate(self, data):
         if self.context['request'].user == data['following']:
             raise serializers.ValidationError(
-                'Имя не может совпадать с цветом!')
+                'Нельзя поодписаться на самого себя.')
         return data

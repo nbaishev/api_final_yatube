@@ -1,23 +1,28 @@
-### Как запустить проект:
+# YaTube API
+### Описание
+*API для проекта YaTube*
+### Технологии
+Примененнные библиотеки указаны в файле requirements.txt
+### Инструкции по запуску
 
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/yandex-praktikum/kittygram.git
+git clone https://github.com/nbaishev/api_final_yatube.git
 ```
 
 ```
-cd kittygram
+cd api_final_yatube
 ```
 
 Cоздать и активировать виртуальное окружение:
 
 ```
-python3 -m venv env
+python3 -m venv venv
 ```
 
 ```
-source env/bin/activate
+source venv/bin/activate
 ```
 
 Установить зависимости из файла requirements.txt:
@@ -41,3 +46,5 @@ python3 manage.py migrate
 ```
 python3 manage.py runserver
 ```
+## Автор
+_nbaishev_
