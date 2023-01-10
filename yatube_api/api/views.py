@@ -3,9 +3,9 @@ from rest_framework import mixins, permissions, viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.pagination import LimitOffsetPagination
 
-from api.permissions import IsAuthorOrReadOnlyPermission
-from api.serializers import (CommentSerializer, FollowSerializer,
-                             GroupSerializer, PostSerializer)
+from .permissions import IsAuthorOrReadOnlyPermission
+from .serializers import (CommentSerializer, FollowSerializer, GroupSerializer,
+                          PostSerializer)
 from posts.models import Group, Post
 
 
